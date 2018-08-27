@@ -1,15 +1,22 @@
 def validate_move(move, board):
-  valid_structure = validate_move_structure(move)
-  valid_placement = validate_move_placement(move, board)
+  is_valid_structure = validate_move_structure(move)
 
-  return valid_structure and valid_placement
+  if is_valid_structure:
+    valid_move_array = valid_move_to_array(move)
+    valid_placement = validate_move_placement(valid_move_array, board)
+
+    return valid_placement
+
+
+  # return valid_structure and valid_placement
+  return False
 
 def validate_move_structure(move):
   char = move[0]
 
   try:
     number = int(move[1]) - 1
-  except ValueError: 
+  except (ValueError, IndexError):
     return False
 
   if ((char == "a" or char == "b" or char == "c") and (number == 0 or number == 1 or number == 2) ):
@@ -18,7 +25,10 @@ def validate_move_structure(move):
     return False
 
 def validate_move_placement(move, board):
-  return True
+  if board.board[move[0]][move[1]] == ' ': 
+    return True
+    
+  return False
 
 def valid_move_to_array(move):
   char, number = move[0], int(move[1]) - 1
