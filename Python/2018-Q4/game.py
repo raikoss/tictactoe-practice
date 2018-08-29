@@ -28,5 +28,11 @@ def play_game():
     board.print_board()
     print("---------------------------------")
 
+    winner = move_handler.check_winner(valid_move, board, current_player)
+
+    if (winner):
+      game_over = True
+      print('Congratulations {0}! You won the game!'.format(player_name))
+
     # Do stuff
     p1_turn = not p1_turn

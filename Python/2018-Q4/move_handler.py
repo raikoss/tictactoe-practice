@@ -46,3 +46,52 @@ def valid_move_to_array(move):
   move_list.append(number)
 
   return move_list
+
+def check_winner(move, board, player):
+  counter = 1
+  max_dimension = len(board.board)
+
+  for i in range(9):
+    currentX = move[0]
+    currentY = move[1]
+
+    if (i == 0):
+      xDiff = -1
+      yDiff = -1
+      while (currentX > 0 and currentX < max_dimension) and (currentY > 0 and currentY < max_dimension):
+        currentX = currentX + xDiff
+        currentY = currentY + yDiff
+        mark = board.board[currentX][currentY]
+        print('CurrentX: {0}, CurrentY: {1}. Mark is now {2}'.format(currentX, currentY, mark))
+        if (mark == player):
+          counter = counter + 1
+    elif i == 1:
+      print('Winner? {0}'.format(traverse(0, -1, move, board, player)))
+
+  print('Counter is then {0}'.format(counter))
+
+  if (counter == max_dimension):
+    return True
+
+  return False
+
+def traverse(xDiff, yDiff, move, board, player):
+  currentX = move[0]
+  currentY = move[1]
+  counter = 1
+  max_dimension = len(board.board)
+
+  while (currentX >= 0 and currentX < max_dimension) and (currentY >= 0 and currentY < max_dimension):
+    currentX = currentX + xDiff
+    currentY = currentY + yDiff
+    mark = board.board[currentX][currentY]
+    print('CurrentX: {0}, CurrentY: {1}. Mark is now \'{2}\''.format(currentX, currentY, mark))
+
+    if mark == player:
+      counter = counter + 1
+    
+
+  if counter == max_dimension:
+    return True
+
+  return False
